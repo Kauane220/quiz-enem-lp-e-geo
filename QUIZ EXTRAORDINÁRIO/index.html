@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Extraordinário</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container">
+        <header class="quiz-header">
+            <h1>Quiz Extraordinário</h1>
+            <div class="quiz-stats">
+                <span id="question-count">Questão: 0/0</span>
+                <span id="score">Pontuação: 0</span>
+            </div>
+        </header>
+
+        <main class="quiz-main" id="quiz-main">
+            <div id="start-screen" class="screen active">
+                <h2>Bem-vindo ao Quiz!</h2>
+                <p>Teste seus conhecimentos em Geografia e Português.</p>
+
+                <div class="options-selection">
+                    <div class="selection-group">
+                        <label for="area-select">Escolha a Área:</label>
+                        <select id="area-select">
+                            <option value="all">Todas</option>
+                            <option value="Português">Português</option>
+                            <option value="Geografia">Geografia</option>
+                        </select>
+                    </div>
+
+                    <div class="selection-group">
+                        <label for="level-select">Escolha o Nível:</label>
+                        <select id="level-select">
+                            <option value="all">Todos</option>
+                            <option value="fácil">Fácil</option>
+                            <option value="médio">Médio</option>
+                            <option value="difícil">Difícil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="start-quiz-btn">Iniciar Quiz</button>
+            </div>
+
+            <div id="quiz-screen" class="screen">
+                <div class="question-info">
+                    <span id="question-area"></span> | <span id="question-level"></span>
+                </div>
+                <div class="question-content">
+                    <p id="question-text"></p>
+                    <p id="question-base-text" class="base-text"></p>
+                </div>
+                <div id="options-container" class="options-container">
+                    </div>
+                <div class="navigation-buttons">
+                    <button id="prev-question-btn" class="nav-btn" disabled>Anterior</button>
+                    <button id="next-question-btn" class="nav-btn">Próxima</button>
+                    <button id="finish-quiz-btn" class="finish-btn" style="display: none;">Finalizar Quiz</button>
+                </div>
+                <div id="feedback" class="feedback"></div>
+            </div>
+
+            <div id="result-screen" class="screen">
+                <h2>Resultados do Quiz</h2>
+                <p>Você acertou <span id="final-score">0</span> de <span id="total-questions">0</span> questões!</p>
+                <p id="percentage-score"></p>
+                <div id="incorrect-answers-summary">
+                    <h3>Questões Erradas:</h3>
+                    <ul id="incorrect-list"></ul>
+                </div>
+                <button id="restart-quiz-btn">Jogar Novamente</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
