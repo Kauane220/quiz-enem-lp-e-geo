@@ -1,0 +1,577 @@
+/* Variáveis de Cores */
+:root {
+    --primary-color: #902a45; /* Verde vibrante */
+    --primary-dark: #e797cd; /* Verde mais escuro */
+    --secondary-color: #2196F3; /* Azul para destaque */
+    --background-color: #eef2f6; /* Fundo suave, quase branco */
+    --card-background: #ffffff; /* Fundo dos cards e elementos principais */
+    --text-color: #333; /* Texto principal escuro */
+    --light-text-color: #666; /* Texto secundário e descrições */
+    --border-color: #e0e0e0; /* Borda suave */
+    --correct-color: #4CAF50; /* Verde para acertos */
+    --incorrect-color: #F44336; /* Vermelho para erros */
+    --hover-color: #f8f8f8; /* Fundo suave ao passar o mouse */
+    --purple-finish: #9C27B0; /* Roxo para finalizar */
+    --purple-finish-dark: #7B1FA2; /* Roxo mais escuro */
+}
+
+/* Base Geral */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo para evitar que transborde em telas menores */
+    min-height: 100vh; /* Ocupa a altura total da viewport */
+    color: var(--text-color);
+    box-sizing: border-box; /* Garante que padding e borda não aumentem o tamanho total */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor leitura */
+}
+
+/* Container Principal do Quiz */
+.quiz-container {
+    background-color: var(--card-background);
+    border-radius: 16px; /* Cantos mais arredondados */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada e suave */
+    width: 90%;
+    max-width: 760px; /* Largura máxima para legibilidade */
+    margin: 40px auto; /* Centraliza vertical e horizontalmente */
+    overflow: hidden; /* Garante que bordas arredondadas funcionem */
+    display: flex;
+    flex-direction: column;
+    min-height: 550px; /* Altura mínima para um bom layout */
+    transition: transform 0.3s ease; /* Transição suave ao carregar */
+}
+
+/* Cabeçalho do Quiz */
+.quiz-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px 30px; /* Mais padding */
+    text-align: center;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil para o cabeçalho */
+}
+
+.quiz-header h1 {
+    margin: 0 0 15px 0; /* Mais espaçamento */
+    font-size: 2.5em; /* Título maior */
+    font-weight: 700;
+    letter-spacing: 0.02em; /* Pequeno espaçamento entre letras */
+}
+
+.quiz-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 0 10px; /* Pequeno padding para os stats */
+}
+
+/* Conteúdo Principal do Quiz */
+.quiz-main {
+    padding: 35px; /* Mais padding */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+}
+
+/* Telas (Inicial, Quiz, Resultado) */
+.screen {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out forwards; /* Animação mais suave */
+    height: 100%; /* Garante que a tela preencha o espaço disponível */
+    display: flex; /* Permite centralizar conteúdo interno */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen.active {
+    display: flex; /* Exibe a tela ativa com flex para centralização */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); } /* Começa um pouco mais abaixo */
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tela Inicial */
+#start-screen h2 {
+    font-size: 2.4em; /* Título maior */
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+#start-screen p {
+    font-size: 1.2em; /* Texto maior */
+    color: var(--light-text-color);
+    margin-bottom: 40px; /* Mais espaço antes do botão */
+}
+
+/* Opções de Seleção (Área e Nível) */
+.options-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Mais espaçamento entre os grupos */
+    margin-bottom: 40px; /* Mais espaço antes do botão Iniciar */
+    width: 100%;
+    max-width: 450px; /* Aumenta um pouco a largura */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 25px; /* Mais padding interno */
+    border: 1px solid var(--border-color);
+    border-radius: 16px; /* Mais arredondado */
+    background-color: var(--background-color);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Sombra mais suave e evidente */
+}
+
+.selection-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento entre label e select */
+}
+
+.selection-group label {
+    font-size: 1.15em; /* Fonte um pouco maior */
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.selection-group select {
+    padding: 14px 20px; /* Mais padding */
+    border: 2px solid var(--border-color);
+    border-radius: 10px; /* Cantos mais arredondados */
+    font-size: 1.05em; /* Fonte um pouco maior */
+    background-color: var(--card-background);
+    color: var(--text-color);
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+}
+
+.selection-group select:hover {
+    border-color: var(--secondary-color);
+}
+
+.selection-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.35); /* Sombra de foco mais forte */
+}
+
+/* Tela do Quiz */
+.question-info {
+    font-size: 1em; /* Tamanho original */
+    color: var(--light-text-color);
+    margin-bottom: 25px; /* Mais espaço */
+    text-align: left;
+    display: flex;
+    gap: 15px; /* Espaçamento entre Área e Nível */
+    font-weight: 500;
+    justify-content: flex-start; /* Alinha ao início */
+}
+
+.question-content {
+    background-color: var(--background-color);
+    border-radius: 12px; /* Mais arredondado */
+    padding: 25px; /* Mais padding */
+    margin-bottom: 30px; /* Mais espaço */
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08); /* Sombra interna mais evidente */
+    text-align: left;
+}
+
+#question-text {
+    font-size: 1.4em; /* Pergunta um pouco maior */
+    font-weight: 600;
+    line-height: 1.7; /* Mais espaço entre linhas */
+    margin: 0;
+    color: var(--text-color);
+}
+
+.base-text {
+    font-style: italic;
+    font-size: 0.95em; /* Levemente maior */
+    color: var(--light-text-color);
+    margin-top: 15px; /* Mais espaço */
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Mais espaçamento entre as opções */
+    margin-bottom: 35px; /* Mais espaço */
+    text-align: left;
+}
+
+.option-btn {
+    background-color: var(--card-background);
+    border: 2px solid var(--border-color); /* Borda mais visível */
+    border-radius: 10px; /* Mais arredondado */
+    padding: 16px 22px; /* Mais padding */
+    font-size: 1.15em; /* Opção um pouco maior */
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transição para todas as propriedades */
+    text-align: left;
+    width: 100%;
+    font-weight: 500; /* Peso da fonte */
+}
+
+.option-btn:hover {
+    background-color: var(--hover-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-3px); /* Efeito de elevação sutil */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Sombra ao passar o mouse */
+}
+
+.option-btn.selected {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    transform: translateY(-2px); /* Efeito suave de seleção */
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4); /* Sombra azul para seleção */
+}
+
+.option-btn.correct {
+    background-color: var(--correct-color);
+    color: white;
+    border-color: var(--correct-color);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4); /* Sombra verde para correto */
+}
+
+.option-btn.incorrect {
+    background-color: var(--incorrect-color);
+    color: white;
+    border-color: var(--incorrect-color);
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.4); /* Sombra vermelha para incorreto */
+}
+
+/* Botões de Navegação e Ação */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Mais espaçamento */
+    margin-top: 25px; /* Mais espaço */
+}
+
+.nav-btn,
+#start-quiz-btn,
+#restart-quiz-btn,
+.finish-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px; /* Mais arredondado */
+    padding: 16px 30px; /* Mais padding */
+    font-size: 1.15em; /* Fonte maior */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 600;
+    flex-grow: 1; /* Ocupam o espaço disponível */
+    text-align: center;
+}
+
+.nav-btn:hover,
+#start-quiz-btn:hover,
+#restart-quiz-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra mais forte no hover */
+}
+
+.nav-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.finish-btn {
+    background-color: var(--purple-finish); /* Roxo para finalizar */
+}
+.finish-btn:hover {
+    background-color: var(--purple-finish-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4); /* Sombra roxa no hover */
+}
+
+.feedback {
+    margin-top: 20px; /* Mais espaço */
+    font-size: 1.2em; /* Feedback maior */
+    font-weight: 700;
+    text-align: center;
+}
+
+.feedback.correct {
+    color: var(--correct-color);
+}
+
+.feedback.incorrect {
+    color: var(--incorrect-color);
+}
+
+/* Tela de Resultados */
+#result-screen h2 {
+    font-size: 2.4em;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+#result-screen p {
+    font-size: 1.25em; /* Texto maior */
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+#percentage-score {
+    font-size: 1.6em; /* Porcentagem maior */
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#incorrect-answers-summary {
+    text-align: left;
+    margin-top: 35px; /* Mais espaço */
+    padding: 25px; /* Mais padding */
+    background-color: var(--background-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%; /* Ocupa a largura total */
+    max-height: 250px; /* Altura máxima para rolagem */
+    overflow-y: auto; /* Adiciona scroll se a lista for muito longa */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+#incorrect-answers-summary::-webkit-scrollbar { /* Esconde a barra de rolagem para Webkit */
+    display: none;
+}
+
+
+#incorrect-answers-summary h3 {
+    margin-top: 0;
+    color: var(--incorrect-color);
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+#incorrect-list {
+    list-style-type: decimal;
+    padding-left: 28px; /* Mais indentação */
+    font-size: 1.05em; /* Levemente maior */
+    line-height: 1.8; /* Mais espaçamento entre itens */
+    color: var(--light-text-color);
+}
+
+#incorrect-list li {
+    margin-bottom: 10px; /* Espaço entre cada item da lista */
+}
+#incorrect-list li strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+#incorrect-list li .correct-answer {
+    color: var(--correct-color);
+    font-weight: 700;
+}
+#incorrect-list li .your-answer {
+    color: var(--incorrect-color);
+    font-weight: 700;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .quiz-container {
+        margin: 20px auto;
+        width: 95%;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-header {
+        padding: 25px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .quiz-header h1 {
+        font-size: 2em;
+    }
+
+    .quiz-stats {
+        font-size: 0.95em;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .quiz-main {
+        padding: 25px;
+    }
+
+    #start-screen h2 {
+        font-size: 2em;
+    }
+    #start-screen p {
+        font-size: 1em;
+    }
+
+    .options-selection {
+        padding: 20px;
+        max-width: none; /* Permite que ocupe a largura total */
+        gap: 15px;
+        margin-bottom: 30px;
+        border-radius: 12px;
+    }
+
+    .selection-group label {
+        font-size: 1em;
+    }
+    .selection-group select {
+        padding: 10px 15px;
+        font-size: 0.95em;
+        background-position: right 10px center;
+    }
+
+    #question-text {
+        font-size: 1.2em;
+    }
+
+    .option-btn {
+        padding: 14px 18px;
+        font-size: 1.05em;
+        border-radius: 8px;
+    }
+
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-btn,
+    #start-quiz-btn,
+    #restart-quiz-btn,
+    .finish-btn {
+        width: 100%; /* Ocupa a largura total */
+        padding: 14px 25px;
+        font-size: 1.05em;
+        border-radius: 8px;
+    }
+
+    #result-screen h2 {
+        font-size: 2em;
+    }
+    #result-screen p {
+        font-size: 1.1em;
+    }
+    #percentage-score {
+        font-size: 1.3em;
+    }
+    #incorrect-answers-summary {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    #incorrect-answers-summary h3 {
+        font-size: 1.2em;
+    }
+    #incorrect-list {
+        font-size: 0.95em;
+        padding-left: 20px;
+    }
+}
+
+/* Media query para telas ainda menores (celulares pequenos) */
+@media (max-width: 480px) {
+    .quiz-container {
+        margin: 15px auto;
+        border-radius: 10px;
+    }
+    .quiz-header {
+        padding: 20px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .quiz-header h1 {
+        font-size: 1.8em;
+    }
+    .quiz-main {
+        padding: 20px;
+    }
+    #start-screen h2 {
+        font-size: 1.8em;
+    }
+    #start-screen p {
+        font-size: 0.9em;
+    }
+    .options-selection {
+        padding: 15px;
+        gap: 10px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+    }
+    .selection-group label {
+        font-size: 0.95em;
+    }
+    .selection-group select {
+        padding: 10px 12px;
+        font-size: 0.9em;
+        background-position: right 8px center;
+        background-size: 16px;
+    }
+    .question-info {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+    #question-text {
+        font-size: 1.1em;
+    }
+    .option-btn {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+    .nav-btn,
+    #start-quiz-btn,
+    #restart-quiz-btn,
+    .finish-btn {
+        padding: 12px 20px;
+        font-size: 0.95em;
+    }
+    .feedback {
+        font-size: 1.05em;
+    }
+    #result-screen h2 {
+        font-size: 1.8em;
+    }
+    #result-screen p {
+        font-size: 1em;
+    }
+    #percentage-score {
+        font-size: 1.2em;
+    }
+    #incorrect-answers-summary {
+        padding: 10px;
+    }
+    #incorrect-answers-summary h3 {
+        font-size: 1.1em;
+    }
+    #incorrect-list {
+        font-size: 0.9em;
+    }
+}
